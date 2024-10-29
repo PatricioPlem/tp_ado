@@ -1,0 +1,43 @@
+{
+	"info": {
+		"_postman_id": "340f6d74-22d3-4340-b93a-4d5e2b4ed9ce",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "37958257"
+	},
+	"item": [
+		{
+			"name": "createUser",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"username\" : \"testeando\" ,\r\n\"email\" : \"testeando@gmail.com\" ,\r\n\"password\" : \"1234\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:8080/user"
+			},
+			"response": []
+		},
+		{
+			"name": "getAllUsers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": "http://localhost:8080/user"
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "autenticacion",
+			"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcGxlbSIsImlhdCI6MTcyNzEzNTc3OSwiZXhwIjoxNzI3MjIyMTc5fQ.ZppajU9VvTnQ5hobcLZPvoegG4caCJmjy8bTHhyQQqp8H7JKz2IJ726a2tWxNcqepAa0kaiUBmFJ97HLJCVjGA"
+		}
+	]
+}
