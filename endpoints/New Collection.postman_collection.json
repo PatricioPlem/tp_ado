@@ -13,7 +13,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"username\" : \"testeando\" ,\r\n\"email\" : \"testeando@gmail.com\" ,\r\n\"password\" : \"1234\"\r\n}",
+					"raw": "{\"username\" : \"pato\" ,\r\n\"email\" : \"pato@gmail.com\" ,\r\n\"password\" : \"1234\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -30,6 +30,22 @@
 				"method": "GET",
 				"header": [],
 				"url": "http://localhost:8080/user"
+			},
+			"response": []
+		},
+		{
+			"name": "authUser",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
 			},
 			"response": []
 		}

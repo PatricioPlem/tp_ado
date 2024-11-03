@@ -24,11 +24,13 @@ public class UserController {
         return ResponseEntity.ok(userService.findAllUsers());
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return userService.findUserById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    @PostMapping("/auth")
+    public ResponseEntity<User> authenticateUser(@RequestBody User user) {
+        try {
+            return ResponseEntity.ok(userService.authenticate(user.getUsername(), user.getPassword()));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @PostMapping
