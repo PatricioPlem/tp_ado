@@ -1,0 +1,2 @@
+CREATE DATABASE ado;
+// create database in mySQL workbench

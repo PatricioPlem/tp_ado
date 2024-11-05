@@ -1,33 +1,32 @@
 package com.uade.gympal.Service;
 
-import com.uade.gympal.Repository.Entity.User;
-import com.uade.gympal.Repository.UserRepository;
+import com.uade.gympal.Repository.Entity.Socio;
+import com.uade.gympal.Repository.SocioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class UserService {
+public class SocioService {
 
     @Autowired
-    private UserRepository userRepository;
+    private SocioRepository userRepository;
 
-    public List<User> findAllUsers() {
+    public List<Socio> findAllUsers() {
         return userRepository.findAll();
     }
     @Transactional
-    public User authenticate(String username, String password) {
-        User user = userRepository.findByUsername(username);
-        if (user.getPassword().equals(password)) {
-            return user;
+    public Socio authenticate(String username, String password) {
+        Socio socio = userRepository.findByUsername(username);
+        if (socio.getPassword().equals(password)) {
+            return socio;
         }
         throw new RuntimeException("Invalid username or password");
     }
 
-    public User saveUser(User user) {
+    public Socio saveUser(Socio user) {
         return userRepository.save(user);
     }
 

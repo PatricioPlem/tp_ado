@@ -1,7 +1,7 @@
 package com.uade.gympal.Controller;
 
-import com.uade.gympal.Repository.Entity.User;
-import com.uade.gympal.Service.UserService;
+import com.uade.gympal.Repository.Entity.Socio;
+import com.uade.gympal.Service.SocioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,22 +10,22 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class SocioController {
 
-    private final UserService userService;
+    private final SocioService userService;
 
     @Autowired
-    public UserController(UserService userService) {
+    public SocioController(SocioService userService) {
         this.userService = userService;
     }
 
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<Socio>> getAllUsers() {
         return ResponseEntity.ok(userService.findAllUsers());
     }
 
     @PostMapping("/auth")
-    public ResponseEntity<User> authenticateUser(@RequestBody User user) {
+    public ResponseEntity<Socio> authenticateUser(@RequestBody Socio user) {
         try {
             return ResponseEntity.ok(userService.authenticate(user.getUsername(), user.getPassword()));
         } catch (Exception e) {
@@ -34,7 +34,7 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<Socio> createUser(@RequestBody Socio user) {
         return ResponseEntity.ok(userService.saveUser(user));
     }
 
