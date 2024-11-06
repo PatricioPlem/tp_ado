@@ -1,6 +1,6 @@
 package com.uade.gympal.Repository.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,19 +14,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Rutina {
+public class GrupoMuscular {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany
-    private List<Entrenamiento> entrenamientos;
-
-    private boolean completada;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private Objetivo objetivo;
-
-
-
+    @JsonManagedReference
+    private List<Ejercicio> ejercicios;
+    private String nombre;
 }
