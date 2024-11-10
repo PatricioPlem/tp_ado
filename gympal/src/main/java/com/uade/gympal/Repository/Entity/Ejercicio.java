@@ -2,6 +2,7 @@ package com.uade.gympal.Repository.Entity;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.uade.gympal.Repository.Enums.ExigenciaMuscular;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
