@@ -35,7 +35,11 @@ public class SocioController {
 
     @PostMapping
     public ResponseEntity<Socio> createUser(@RequestBody Socio user) {
-        return ResponseEntity.ok(userService.saveUser(user));
+        try {
+            return ResponseEntity.ok(userService.saveUser(user));
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @DeleteMapping("/{id}")

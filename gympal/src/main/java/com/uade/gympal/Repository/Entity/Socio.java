@@ -24,6 +24,8 @@ public class Socio {
     private float peso;
 
     private int altura;
+
+    @Column(unique = true, nullable = false)
     private String username;
     private String password;
     //@ManyToOne
