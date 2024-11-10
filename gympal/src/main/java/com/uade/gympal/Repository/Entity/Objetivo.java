@@ -1,6 +1,5 @@
 package com.uade.gympal.Repository.Entity;
 
-import com.uade.gympal.Repository.Enums.TipoObjetivo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,8 +19,5 @@ public class Objetivo {
     @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true)
     private Rutina rutina;
 
-    public Objetivo cambiarObjetivo(TipoObjetivo tipoObjetivo) {
-
-    }
 
 }

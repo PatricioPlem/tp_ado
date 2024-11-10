@@ -1,6 +1,7 @@
 package com.uade.gympal.Controller;
 
 
+import com.uade.gympal.Repository.Entity.Entrenamiento;
 import com.uade.gympal.Repository.Entity.Rutina;
 import com.uade.gympal.Repository.Entity.Socio;
 import com.uade.gympal.Service.RutinaService;
@@ -23,7 +24,7 @@ public class RutinaController {
     }
 
     @PostMapping
-    public ResponseEntity<Rutina> crearRutina(@RequestBody List<String> entrenamientos) {
+    public ResponseEntity<Rutina> crearRutina(@RequestBody List<Entrenamiento> entrenamientos) {
         Rutina rutinaCreada = rutinaService.crearRutina(entrenamientos);
         return ResponseEntity.ok(rutinaCreada);
     }
