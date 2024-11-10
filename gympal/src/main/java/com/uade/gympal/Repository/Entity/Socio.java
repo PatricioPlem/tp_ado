@@ -1,5 +1,6 @@
 package com.uade.gympal.Repository.Entity;
 
+import com.uade.gympal.Repository.Enums.Sexo;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,7 +25,8 @@ public class Socio {
     private float peso;
 
     private int altura;
-    @Column(unique = true)
+
+    @Column(unique = true, nullable = false)
     private String username;
     private String password;
     //@ManyToOne
