@@ -10,14 +10,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/objetivo")
+@RequestMapping(value="/objetivo",produces = "application/json")
 public class ObjetivoController {
 
     @Autowired
     private ObjetivoService objetivoService;
 
     // Endpoint para obtener todos los objetivos
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<Objetivo>> getAllObjetivos() {
         List<Objetivo> objetivos = objetivoService.getAllObjetivos();
         return ResponseEntity.ok(objetivos);

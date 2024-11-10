@@ -9,11 +9,13 @@ import com.uade.gympal.Service.SocioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping(value = "/user", produces = "application/json")
 public class SocioController {
     @Autowired
     private SocioService socioService;
@@ -22,30 +24,34 @@ public class SocioController {
     private ObjetivoService objetivoService;
 
 
-    @GetMapping
+    @GetMapping(produces = "application/json")
     public ResponseEntity<List<Socio>> getAllUsers() {
         return ResponseEntity.ok(socioService.findAllUsers());
     }
 
     @PostMapping("/cambiar-objetivo")
     public ResponseEntity<Socio> cambiarObjetivo(@RequestBody ObjetivoEnum objetivo) {
-        // Llamar al servicio para cambiar el objetivo
-        System.out.println(objetivo);
-        Socio socioActualizado = socioService.cambiarObjetivo(objetivo);
+        try {
+            // Llamar al servicio para cambiar el objetivo
+            System.out.println(objetivo);
+            Socio socioActualizado = socioService.cambiarObjetivo(objetivo);
 
-        // Retornar el socio actualizado
-        return ResponseEntity.ok(socioActualizado);
+            // Retornar el socio actualizado
+            return ResponseEntity.ok(socioActualizado);
+        }
+        catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+
+        }
     }
 
-
-
-
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<Socio> createUser(@RequestBody Socio user) {
         try {
-            return ResponseEntity.ok(socioService.saveUser(user));
+            Socio savedUser = socioService.saveUser(user);
+            return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
         } catch (RuntimeException e) {
-            return ResponseEntity.badRequest().body(null);
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }
     }
     @PostMapping("/auth")
@@ -53,21 +59,25 @@ public class SocioController {
         try {
             return ResponseEntity.ok(socioService.authenticate(user.getUsername(), user.getPassword()));
         } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
-    @GetMapping("/current")
+    @GetMapping(value ="/current", produces = "application/json")
     public ResponseEntity<Socio> getCurrentUser() {
-        Socio currentUser = CurrentUserHolder.getCurrentUser();
-        if (currentUser != null) {
-            return ResponseEntity.ok(currentUser);
+        try {
+            Socio currentUser = CurrentUserHolder.getCurrentUser();
+            if (currentUser != null) {
+                return ResponseEntity.ok(currentUser);
+            } else {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Unexpected error
         }
-
-        return ResponseEntity.badRequest().build();
     }
 
 
-    @PostMapping("/logoff")
+    @PostMapping(value="/logoff", produces = "application/json")
     public ResponseEntity<Void> clearCurrentUser () {
        CurrentUserHolder.clear();
         return ResponseEntity.noContent().build();
@@ -76,7 +86,13 @@ public class SocioController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
+        try{
         socioService.deleteUser(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
     }
+
 }
