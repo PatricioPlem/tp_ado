@@ -1,5 +1,6 @@
 package com.uade.gympal.Repository.Entity;
 
+import com.uade.gympal.Repository.Enums.Sexo;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,10 +38,4 @@ public class Socio {
     private float masaMuscular;
 
     private float grasaCorporal;
-
-    // Enum de sexo
-    public enum Sexo {
-        MASCULINO,
-        FEMENINO
-    }
 }
