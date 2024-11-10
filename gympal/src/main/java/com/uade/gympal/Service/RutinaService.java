@@ -1,5 +1,6 @@
 package com.uade.gympal.Service;
 
+import com.uade.gympal.Repository.Entity.Entrenamiento;
 import com.uade.gympal.Repository.Entity.Rutina;
 import com.uade.gympal.Repository.RutinaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,7 @@ public class RutinaService {
         return rutinaRepository.findAll();
     }
 
-    public Rutina crearRutina(List<String> entrenamientos) {
+    public Rutina crearRutina(List<Entrenamiento> entrenamientos) {
         Rutina nuevaRutina = Rutina.builder()
                 .entrenamientos(entrenamientos)
                 .completada(false) // Nueva rutina creada como no completada
