@@ -20,8 +20,8 @@ public class Objetivo {
     @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true)
     private Rutina rutina;
 
-    public Objetivo cambiarObjetivo(TipoObjetivo tipoObjetivo) {
+    //public Objetivo cambiarObjetivo(TipoObjetivo tipoObjetivo) {
 
-    }
+    //}
 
 }
