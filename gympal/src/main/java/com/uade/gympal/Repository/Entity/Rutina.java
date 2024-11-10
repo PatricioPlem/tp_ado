@@ -19,7 +19,7 @@ public class Rutina {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Entrenamiento> entrenamientos;
 
     private boolean completada;

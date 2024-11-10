@@ -23,10 +23,4 @@ public class ObjetivoController {
         return ResponseEntity.ok(objetivos);
     }
 
-    // Endpoint para crear un nuevo objetivo
-    @PostMapping
-    public ResponseEntity<Objetivo> createObjetivo(@RequestBody Objetivo objetivo) {
-        Objetivo nuevoObjetivo = objetivoService.createObjetivo(objetivo);
-        return ResponseEntity.status(HttpStatus.CREATED).body(nuevoObjetivo);
-    }
 }

@@ -1,8 +1,8 @@
 package com.uade.gympal.Repository.Entity;
 
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.uade.gympal.Repository.Enums.ExigenciaMuscular;
+import com.uade.gympal.Repository.Enums.ExigenciaMuscularEnum;
+import com.uade.gympal.Repository.Enums.GrupoMuscularEnum;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,15 +19,17 @@ public class Ejercicio {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String nombre;
     private int nivelAerobico;
-    private ExigenciaMuscular exigenciaMuscular;
+    @Enumerated(EnumType.STRING)
+    private ExigenciaMuscularEnum exigenciaMuscular;
     @OneToOne
     private VideoFile video;
     private boolean completado;
-    @ManyToOne
-    @JsonBackReference
-    private GrupoMuscular grupoMuscular;
+    @Enumerated(EnumType.STRING)
+    private GrupoMuscularEnum grupoMuscular;  // Cambiado a Enum
     private int series;
     private int repeticiones;
     private double peso;
+
 }

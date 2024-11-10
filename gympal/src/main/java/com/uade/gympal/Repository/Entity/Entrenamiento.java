@@ -20,9 +20,9 @@ public class Entrenamiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany
+    @OneToMany()
     private List<Ejercicio> ejercicios;
-    private String dia;
+    private int dia;
 
 
     }

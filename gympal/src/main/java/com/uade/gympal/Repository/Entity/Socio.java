@@ -1,6 +1,6 @@
 package com.uade.gympal.Repository.Entity;
 
-import com.uade.gympal.Repository.Enums.Sexo;
+import com.uade.gympal.Repository.Enums.SexoEnum;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,7 +20,7 @@ public class Socio {
     private int edad;
 
     @Enumerated(EnumType.STRING)
-    private Sexo sexo;
+    private SexoEnum sexo;
 
     private float peso;
 
@@ -29,8 +29,8 @@ public class Socio {
     @Column(unique = true, nullable = false)
     private String username;
     private String password;
-    //@ManyToOne
-    //private Objetivo objetivo;
+    @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true)
+    private Objetivo objetivo;
 
     //@OneToMany(mappedBy = "socio", cascade = CascadeType.ALL)
     //private List<Trofeo> trofeos;
@@ -39,9 +39,5 @@ public class Socio {
 
     private float grasaCorporal;
 
-    // Enum de sexo
-    public enum Sexo {
-        MASCULINO,
-        FEMENINO
-    }
+
 }
