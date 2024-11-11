@@ -83,7 +83,8 @@ public class RutinaFactory {
 
             ejerciciosImplementados.add(EjercicioImplementado.builder()
                     .entrenamiento(entrenamiento)
-                    .ejercicioTemplate(template)
+                    .video(template.getVideo())
+                    .nombre(template.getNombre())
                     .peso(template.getPeso())
                     .series(template.getSeries())
                     .repeticiones(template.getRepeticiones())

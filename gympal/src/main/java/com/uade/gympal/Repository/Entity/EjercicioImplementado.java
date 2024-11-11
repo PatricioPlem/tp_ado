@@ -19,12 +19,12 @@ public class EjercicioImplementado {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @ManyToOne
-    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JsonBackReference
     private Entrenamiento entrenamiento;
-    @OneToOne
-    @JsonManagedReference
-    private EjercicioTemplate ejercicioTemplate;
+    private String nombre;
+    @OneToOne(cascade = CascadeType.ALL)
+    private VideoFile video;
     private float peso;
     private int series;
     private int repeticiones;

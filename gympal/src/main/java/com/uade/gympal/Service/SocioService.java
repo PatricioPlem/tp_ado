@@ -68,5 +68,9 @@ public class SocioService {
         return socioRepository.save(socio);
     }
 
+    public Socio getSocio() {
+        return socioRepository.findById(CurrentUserHolder.getCurrentUser().getId()).orElseThrow();
+    }
+
     }
 

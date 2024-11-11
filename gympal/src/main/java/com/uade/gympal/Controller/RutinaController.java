@@ -6,8 +6,10 @@ import com.uade.gympal.Repository.Entity.Rutina;
 import com.uade.gympal.Repository.Entity.Socio;
 import com.uade.gympal.Service.RutinaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -31,9 +33,13 @@ public class RutinaController {
 
     @PutMapping("/{id}/completar")
     public ResponseEntity<String> completarRutina(@PathVariable Long id) {
-
-        return ResponseEntity.ok(rutinaService.completarRutina(id));
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(rutinaService.completarRutina(id));
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
+
 
 
 }

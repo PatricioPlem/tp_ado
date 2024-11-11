@@ -23,9 +23,8 @@ public class EjercicioTemplate {
     private int nivelAerobico;
     @Enumerated(EnumType.STRING)
     private ExigenciaMuscularEnum exigenciaMuscular;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private VideoFile video;
-    private boolean completado;
     @Enumerated(EnumType.STRING)
     private GrupoMuscularEnum grupoMuscular;  // Cambiado a Enum
     private int series;
