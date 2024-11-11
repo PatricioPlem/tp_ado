@@ -11,6 +11,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;
 
@@ -29,7 +30,7 @@ public class Rutina implements IObservable {
     private List<Entrenamiento> entrenamientos;
 
     @Transient
-    private List<Observador> observers;
+    private List<Observador> observers = new ArrayList<>();
 
     public boolean esPerfecta() {
         for (Entrenamiento entrenamiento : entrenamientos) {

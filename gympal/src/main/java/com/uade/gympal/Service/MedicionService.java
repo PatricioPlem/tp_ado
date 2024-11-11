@@ -22,7 +22,7 @@ public class MedicionService implements IObservable {
     private MedicionRepository medicionRepository;
 
     @Transient
-    private List<Observador> observers;
+    private List<Observador> observers = new ArrayList<>();
 
     public MedicionService() {
         observers = new ArrayList<Observador>();
