@@ -1,9 +1,10 @@
 package com.uade.gympal.Controller;
 
 
+
 import com.uade.gympal.Repository.Entity.Entrenamiento;
 import com.uade.gympal.Repository.Entity.Rutina;
-import com.uade.gympal.Repository.Entity.Socio;
+
 import com.uade.gympal.Service.RutinaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +30,14 @@ public class RutinaController {
     public ResponseEntity<Rutina> crearRutina(@RequestBody List<Entrenamiento> entrenamientos) {
         Rutina rutinaCreada = rutinaService.crearRutina(entrenamientos);
         return ResponseEntity.ok(rutinaCreada);
+    }
+    @PutMapping("/reforzar")
+    public ResponseEntity<Rutina> reforzarRutina() {
+        try {
+            return ResponseEntity.status(HttpStatus.OK).body(rutinaService.reforzarRutina());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
     }
 
     @PutMapping("/{id}/completar")

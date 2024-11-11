@@ -35,4 +35,11 @@ public class EjercicioService {
         return ejercicioRepository.save(ejercicio);
     }
 
+    public void reforzarEjercicio(EjercicioImplementado ejercicio) {
+        ejercicio.setPeso(ejercicio.getPeso() + 2.5f);
+        ejercicio.setRepeticiones(ejercicio.getRepeticiones() + 2);
+        ejercicio.setSeries(ejercicio.getSeries() + 1);
+        ejercicioImplementadoRepository.save(ejercicio);
+    }
+
 }
