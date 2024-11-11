@@ -24,8 +24,6 @@ public class ObjetivoService {
     // Método para crear un nuevo objetivo
     public Objetivo createObjetivo(ObjetivoEnum objetivo) {
 
-
-
         Rutina rutina = rutinaFactory.generarRutina(objetivo);
 
         switch (objetivo) {

@@ -37,7 +37,6 @@ public class SocioService {
 
             socio.getObjetivo().agregar(new TrofeoDedicacion());
             socio.getObjetivo().agregar(new TrofeoConstancia());
-            // medicionService.agregar(new TrofeoCreido());
 
 
             return socio;

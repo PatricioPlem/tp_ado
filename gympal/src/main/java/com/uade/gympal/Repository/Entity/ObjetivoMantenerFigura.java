@@ -10,7 +10,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @SuperBuilder
 @EqualsAndHashCode(callSuper = true)
-public class ObjetivoMantenerFigura extends Objetivo{
+public class ObjetivoMantenerFigura extends Objetivo {
     private float variacionPeso;
     private float pesoInicial;
 

@@ -83,7 +83,10 @@ public class SocioController {
 
     @PostMapping(value="/logoff", produces = "application/json")
     public ResponseEntity<Void> clearCurrentUser () {
-       CurrentUserHolder.clear();
+        Socio currentUser = CurrentUserHolder.getCurrentUser();
+        currentUser.clearObservers();
+
+        CurrentUserHolder.clear();
         return ResponseEntity.noContent().build();
     }
 
