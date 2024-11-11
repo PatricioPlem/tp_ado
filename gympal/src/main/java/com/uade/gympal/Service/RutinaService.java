@@ -52,7 +52,9 @@ public class RutinaService {
 
         }
         response.setCompletada(true);
-        return response;
 
+        rutina.notificarObservadores();
+
+        return response;
     }
 }

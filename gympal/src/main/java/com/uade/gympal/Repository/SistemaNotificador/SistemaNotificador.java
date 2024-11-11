@@ -1,15 +1,24 @@
 package com.uade.gympal.Repository.SistemaNotificador;
 
-public class SistemaNotificador {
-    private SistemaNotificador instancia;
-    private Notificador notificador;
-//    private List<IObservable> observables;
+import com.uade.gympal.Repository.SistemaNotificador.Firebase.NotificacionFirebase;
 
-    public SistemaNotificador getInstancia() {
-        return this;
+public class SistemaNotificador {
+    private static SistemaNotificador instancia;
+    private Notificador notificador;
+
+    private SistemaNotificador() {
+        this.notificador = new Notificador();
+        this.notificador.setEstrategia(new NotificacionFirebase());
     }
 
-//    public agregarObservable(ObservableTrofeo observable) {}
-//    public eliminarObservable(ObservableTrofeo observable) {}
-    public void notificar(Notificacion notificacion) {}
+    public static SistemaNotificador getInstancia() {
+        if (instancia == null) {
+            instancia = new SistemaNotificador();
+        }
+        return instancia;
+    }
+
+    public void notificar(Notificacion notificacion) {
+        notificador.notificar(notificacion);
+    }
 }

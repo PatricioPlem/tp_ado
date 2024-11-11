@@ -3,6 +3,8 @@ package com.uade.gympal.Service;
 
 import com.uade.gympal.Repository.Entity.Objetivo;
 import com.uade.gympal.Repository.Entity.Socio;
+import com.uade.gympal.Repository.Entity.Trofeos.TrofeoConstancia;
+import com.uade.gympal.Repository.Entity.Trofeos.TrofeoDedicacion;
 import com.uade.gympal.Repository.Enums.ObjetivoEnum;
 import com.uade.gympal.Repository.ObjetivoRepository;
 import com.uade.gympal.Repository.SocioRepository;
@@ -31,6 +33,11 @@ public class SocioService {
         Socio socio = socioRepository.findByUsername(username);
         if (socio.getPassword().equals(password)) {
             CurrentUserHolder.setCurrentUser(socio);
+
+            //socio.getObjetivo().agregar(new TrofeoDedicacion());
+            //socio.getObjetivo().agregar(new TrofeoConstancia());
+
+
             return socio;
         }
         throw new RuntimeException("Invalid username or password");
@@ -71,5 +78,5 @@ public class SocioService {
         return socioRepository.findById(CurrentUserHolder.getCurrentUser().getId()).orElseThrow();
     }
 
-    }
+}
 

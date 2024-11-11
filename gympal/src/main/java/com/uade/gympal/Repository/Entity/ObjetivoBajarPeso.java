@@ -14,4 +14,8 @@ public class ObjetivoBajarPeso extends Objetivo{
 
     private float pesoIdeal;
 
+    @Override
+    public boolean objetivoCumplido(Socio socio) {
+        return socio.getPeso() <= pesoIdeal;
+    }
 }

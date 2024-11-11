@@ -1,5 +1,9 @@
 package com.uade.gympal.Repository.Entity;
 
+import com.uade.gympal.Repository.Entity.Observer.IObservable;
+import com.uade.gympal.Repository.Entity.Observer.Observador;
+import com.uade.gympal.Repository.Entity.Trofeos.Trofeo;
+import com.uade.gympal.Repository.Entity.Trofeos.TrofeoCreido;
 import com.uade.gympal.Repository.Enums.SexoEnum;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,12 +36,16 @@ public class Socio {
     @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true)
     private Objetivo objetivo;
 
-    //@OneToMany(mappedBy = "socio", cascade = CascadeType.ALL)
-    //private List<Trofeo> trofeos;
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Trofeo> trofeos;
 
     private float masaMuscular;
 
     private float grasaCorporal;
 
-
+    public void agregarTrofeo(Trofeo trofeo) {
+        if (!trofeos.contains(trofeo)) {
+            trofeos.add(trofeo);
+        }
+    }
 }

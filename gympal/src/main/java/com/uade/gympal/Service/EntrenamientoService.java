@@ -27,16 +27,12 @@ public class EntrenamientoService {
 
     }
     public boolean verificarCompletado(Entrenamiento entrenamiento) {
-        // Obtener los ejercicios implementados de un entrenamiento
         List<EjercicioImplementado> ejercicios = entrenamiento.getEjercicios();
 
-
         for (EjercicioImplementado ejercicio : ejercicios) {
-
             if (!ejercicioService.verificarCompletado(ejercicio)){
                 return false;
             }
-
         }
         return true;
     }

@@ -3,6 +3,7 @@ package com.uade.gympal.Controller;
 import com.uade.gympal.Repository.Entity.CurrentUserHolder;
 
 import com.uade.gympal.Repository.Entity.Socio;
+import com.uade.gympal.Repository.Entity.Trofeos.TrofeoDedicacion;
 import com.uade.gympal.Repository.Enums.ObjetivoEnum;
 import com.uade.gympal.Service.ObjetivoService;
 import com.uade.gympal.Service.SocioService;
@@ -78,7 +79,7 @@ public class SocioController {
 
     @PostMapping(value="/logoff", produces = "application/json")
     public ResponseEntity<Void> clearCurrentUser () {
-       CurrentUserHolder.clear();
+        CurrentUserHolder.clear();
         return ResponseEntity.noContent().build();
     }
 

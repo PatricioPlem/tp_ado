@@ -24,6 +24,4 @@ public class Entrenamiento {
     @JsonManagedReference
     private List<EjercicioImplementado> ejercicios;
     private int dia;
-
-
-    }
+}

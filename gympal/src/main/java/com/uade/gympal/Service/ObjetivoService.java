@@ -1,11 +1,14 @@
 package com.uade.gympal.Service;
 
 import com.uade.gympal.Repository.Entity.*;
+import com.uade.gympal.Repository.Entity.Trofeos.TrofeoConstancia;
+import com.uade.gympal.Repository.Entity.Trofeos.TrofeoDedicacion;
 import com.uade.gympal.Repository.Enums.ObjetivoEnum;
 import com.uade.gympal.Repository.ObjetivoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -14,6 +17,8 @@ public class ObjetivoService {
     private ObjetivoRepository objetivoRepository;
     @Autowired
     private RutinaFactory rutinaFactory;
+    @Autowired
+    private RutinaService rutinaService;
 
 
     public Objetivo getUserObjetivo(Socio socioAutenticado) {
@@ -21,41 +26,66 @@ public class ObjetivoService {
     }
 
     // Método para crear un nuevo objetivo
-    public Objetivo createObjetivo(ObjetivoEnum objetivo) {
+    public Objetivo createObjetivo(ObjetivoEnum objetivoEnum) {
+        Rutina rutina = rutinaFactory.generarRutina(objetivoEnum);
+        Objetivo objetivo;
 
-
-
-        Rutina rutina = rutinaFactory.generarRutina(objetivo);
-
-        switch (objetivo) {
+        switch (objetivoEnum) {
             case BAJAR_PESO:
-                return ObjetivoBajarPeso.builder()
-                        .pesoIdeal(60) // Aquí podrías obtener el valor real de algún dato de la entidad `objetivo`
-                        .tipo(objetivo)
+                objetivo = ObjetivoBajarPeso.builder()
+                        .pesoIdeal(60)
+                        .tipo(objetivoEnum)
                         .rutina(rutina)
                         .build();
+                break;
 
             case TONIFICAR:
-                return ObjetivoTonificar.builder()
-                        .IMC(20) // Asegúrate de que `objetivo` tenga el valor de IMC
+                objetivo = ObjetivoTonificar.builder()
+                        .IMC(20)
                         .porcentajeGrasa(12)
-                        .tipo(objetivo)
+                        .tipo(objetivoEnum)
                         .rutina(rutina)
                         .build();
+                break;
 
             case MANTENER_FIGURA:
-                return ObjetivoMantenerFigura.builder()
-                        .tipo(objetivo)
+                objetivo = ObjetivoMantenerFigura.builder()
+                        .tipo(objetivoEnum)
                         .rutina(rutina)
                         .pesoInicial(70)
                         .variacionPeso(2.5F)
                         .build();
+                break;
 
+            default:
+                throw new RuntimeException("Objetivo desconocido");
         }
-        throw new RuntimeException("Exploto el programa :/");
+
+        // Agregar ambos observadores a todos los objetivos
+        agregarObservers(objetivo);
+
+        return objetivo;
     }
+
+    public boolean verificarObjetivoCumplido(Socio socio) {
+        Objetivo objetivo = socio.getObjetivo();
+
+        if (objetivo instanceof ObjetivoMantenerFigura) {
+            boolean rutinaCompletada = rutinaService.verificarCompleto(socio).isCompletada();
+            if (socio.getObjetivo().getTipo() == ObjetivoEnum.MANTENER_FIGURA && !rutinaCompletada) {
+                return false;
+            }
+        }
+
+        return objetivo.objetivoCumplido(socio);
+    }
+
     // Método para obtener todos los objetivos
     public List<Objetivo> getAllObjetivos() {
         return objetivoRepository.findAll();
+    }
+
+    private void agregarObservers(Objetivo objetivo) {
+        objetivo.setObservers(new ArrayList<>(List.of(new TrofeoDedicacion(), new TrofeoConstancia())));
     }
 }
