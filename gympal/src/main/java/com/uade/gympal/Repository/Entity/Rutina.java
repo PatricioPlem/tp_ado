@@ -24,8 +24,5 @@ public class Rutina {
     @JsonManagedReference
     private List<Entrenamiento> entrenamientos;
 
-    private boolean completada;
-
-
 
 }

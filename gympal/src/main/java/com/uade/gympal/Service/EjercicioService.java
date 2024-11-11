@@ -41,5 +41,7 @@ public class EjercicioService {
         ejercicio.setSeries(ejercicio.getSeries() + 1);
         ejercicioImplementadoRepository.save(ejercicio);
     }
-
+    public boolean verificarCompletado(EjercicioImplementado ejercicio) {
+        return ejercicio.isCompletado();
+    }
 }

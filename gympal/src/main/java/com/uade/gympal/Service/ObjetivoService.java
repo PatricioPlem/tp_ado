@@ -15,10 +15,9 @@ public class ObjetivoService {
     @Autowired
     private RutinaFactory rutinaFactory;
 
-    @Autowired
-    public ObjetivoService(ObjetivoRepository objetivoRepository, RutinaFactory rutinaFactory) {
-        this.objetivoRepository = objetivoRepository;
-        this.rutinaFactory = rutinaFactory;
+
+    public Objetivo getUserObjetivo(Socio socioAutenticado) {
+                return socioAutenticado.getObjetivo();
     }
 
     // Método para crear un nuevo objetivo

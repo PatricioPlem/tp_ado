@@ -20,8 +20,7 @@ public class SocioService {
     private SocioRepository socioRepository;
     @Autowired
     private ObjetivoService objetivoService;
-    @Autowired
-    private ObjetivoRepository objetivoRepository;
+
 
 
     public List<Socio> findAllUsers() {
