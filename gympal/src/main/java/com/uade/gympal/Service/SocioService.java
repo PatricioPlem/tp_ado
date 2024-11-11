@@ -1,6 +1,8 @@
 package com.uade.gympal.Service;
 
 
+import com.uade.gympal.Auth.AuthAdapter;
+import com.uade.gympal.Auth.AuthConcreta;
 import com.uade.gympal.Repository.Entity.Objetivo;
 import com.uade.gympal.Repository.Entity.Socio;
 import com.uade.gympal.Repository.Enums.ObjetivoEnum;
@@ -20,6 +22,8 @@ public class SocioService {
     private SocioRepository socioRepository;
     @Autowired
     private ObjetivoService objetivoService;
+    @Autowired
+    private AuthAdapter authAdapter;
 
 
 
@@ -28,12 +32,8 @@ public class SocioService {
     }
     @Transactional
     public Socio authenticate(String username, String password) {
-        Socio socio = socioRepository.findByUsername(username);
-        if (socio.getPassword().equals(password)) {
-            CurrentUserHolder.setCurrentUser(socio);
-            return socio;
-        }
-        throw new RuntimeException("Invalid username or password");
+        CurrentUserHolder.setCurrentUser(authAdapter.autenticar(username, password));
+        return CurrentUserHolder.getCurrentUser();
     }
 
     public Socio saveUser(Socio user) {
