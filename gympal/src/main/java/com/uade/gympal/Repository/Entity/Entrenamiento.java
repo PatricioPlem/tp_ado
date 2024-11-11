@@ -24,5 +24,12 @@ public class Entrenamiento {
     private List<Ejercicio> ejercicios;
     private int dia;
 
-
+    public boolean isCompletado() {
+        for (Ejercicio ejercicio : ejercicios) {
+            if (!ejercicio.isCompletado()) {
+                return false;
+            }
+        }
+        return true;
     }
+}

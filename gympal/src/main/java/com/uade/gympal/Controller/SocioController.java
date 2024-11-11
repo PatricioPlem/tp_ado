@@ -3,6 +3,7 @@ package com.uade.gympal.Controller;
 import com.uade.gympal.Repository.Entity.CurrentUserHolder;
 
 import com.uade.gympal.Repository.Entity.Socio;
+import com.uade.gympal.Repository.Entity.Trofeos.TrofeoDedicacion;
 import com.uade.gympal.Repository.Enums.ObjetivoEnum;
 import com.uade.gympal.Service.ObjetivoService;
 import com.uade.gympal.Service.SocioService;
@@ -35,6 +36,9 @@ public class SocioController {
             // Llamar al servicio para cambiar el objetivo
             System.out.println(objetivo);
             Socio socioActualizado = socioService.cambiarObjetivo(objetivo);
+
+            // Agregar observer para trofeo
+            if (socioActualizado.getObservers().isEmpty()) { socioActualizado.agregar(new TrofeoDedicacion()); }
 
             // Retornar el socio actualizado
             return ResponseEntity.ok(socioActualizado);

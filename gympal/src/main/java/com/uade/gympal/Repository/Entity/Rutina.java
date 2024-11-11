@@ -27,6 +27,12 @@ public class Rutina {
     @OneToOne(cascade = CascadeType.ALL)
     private Objetivo objetivo;
 
-
-
+    public boolean esPerfecta() {
+        for (Entrenamiento entrenamiento : entrenamientos) {
+            if (!entrenamiento.isCompletado()) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

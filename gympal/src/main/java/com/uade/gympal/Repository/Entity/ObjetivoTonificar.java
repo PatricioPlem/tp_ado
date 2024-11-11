@@ -13,4 +13,9 @@ import lombok.experimental.SuperBuilder;
 public class ObjetivoTonificar extends Objetivo{
     private float IMC;
     private float porcentajeGrasa;
+
+    @Override
+    public boolean objetivoCumplido(Socio socio) {
+        return socio.getGrasaCorporal() == porcentajeGrasa && socio.getMasaMuscular() == IMC;
+    }
 }

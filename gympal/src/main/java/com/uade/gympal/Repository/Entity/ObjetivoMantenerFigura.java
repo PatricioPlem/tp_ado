@@ -13,4 +13,11 @@ import lombok.experimental.SuperBuilder;
 public class ObjetivoMantenerFigura extends Objetivo{
     private float variacionPeso;
     private float pesoInicial;
+
+    @Override
+    public boolean objetivoCumplido(Socio socio) {
+        float peso = socio.getPeso();
+        boolean rutinaCompletada = socio.getObjetivo().getRutina().isCompletada();
+        return rutinaCompletada && peso >= (pesoInicial - variacionPeso) && peso <= (pesoInicial + variacionPeso);
+    }
 }

@@ -1,6 +1,7 @@
 package com.uade.gympal.Service;
 import com.uade.gympal.Repository.Entity.CurrentUserHolder;
 import com.uade.gympal.Repository.Entity.Medicion;
+import com.uade.gympal.Repository.Entity.Socio;
 import com.uade.gympal.Repository.MedicionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cglib.core.Local;
@@ -19,6 +20,11 @@ public class MedicionService {
         if (CurrentUserHolder.getCurrentUser() != null){
             medida.setSocio(CurrentUserHolder.getCurrentUser());
             medida.setDateTime(LocalDateTime.now()); // Set the timestamp before saving
+
+            if (esSocioCreido(CurrentUserHolder.getCurrentUser())) {
+                // Notificar trofeo creido
+            }
+
             return medicionRepository.save(medida);
         }
         throw new RuntimeException("UNAUTHORIZED");
@@ -30,5 +36,11 @@ public class MedicionService {
         }
         throw new RuntimeException("UNAUTHORIZED");
 
+    }
+
+    public boolean esSocioCreido(Socio socio) {
+        LocalDateTime haceUnMes = LocalDateTime.now().minusMonths(1);
+        List<Medicion> mediciones = medicionRepository.findBySocioIdAndDateTimeAfter(socio.getId(), haceUnMes);
+        return mediciones.size() > 3;
     }
 }
