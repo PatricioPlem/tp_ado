@@ -1,5 +1,6 @@
 package com.uade.gympal.Service;
 
+import com.uade.gympal.Repository.Entity.CurrentUserHolder;
 import com.uade.gympal.Repository.Entity.Entrenamiento;
 import com.uade.gympal.Repository.Entity.Rutina;
 import com.uade.gympal.Repository.RutinaRepository;
@@ -14,6 +15,8 @@ public class RutinaService {
 
     @Autowired
     private RutinaRepository rutinaRepository;
+    @Autowired
+    private EntrenamientoService entrenamientoService;
 
     public List<Rutina> getAll() {
         return rutinaRepository.findAll();
@@ -26,6 +29,13 @@ public class RutinaService {
                 .build();
 
         return rutinaRepository.save(nuevaRutina);
+    }
+    public Rutina reforzarRutina() {
+        Rutina rutina = CurrentUserHolder.getCurrentUser().getObjetivo().getRutina();
+        for (Entrenamiento entrenamiento : rutina.getEntrenamientos()) {
+            entrenamientoService.reforzarEntrenamiento(entrenamiento);
+        }
+        return CurrentUserHolder.getCurrentUser().getObjetivo().getRutina();
     }
 
     public String completarRutina(Long id) {

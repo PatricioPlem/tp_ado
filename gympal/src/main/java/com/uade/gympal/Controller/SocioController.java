@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class SocioController {
         return ResponseEntity.ok(socioService.findAllUsers());
     }
 
-    @PostMapping("/cambiar-objetivo")
+    @PutMapping("/cambiar-objetivo")
     public ResponseEntity<Socio> cambiarObjetivo(@RequestBody ObjetivoEnum objetivo) {
         try {
             // Llamar al servicio para cambiar el objetivo
@@ -40,7 +41,8 @@ public class SocioController {
             return ResponseEntity.ok(socioActualizado);
         }
         catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            System.out.println(e.getMessage());
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
 
         }
     }
@@ -51,7 +53,7 @@ public class SocioController {
             Socio savedUser = socioService.saveUser(user);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
         } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+            throw new ResponseStatusException(HttpStatus.CONFLICT, e.getMessage());
         }
     }
     @PostMapping("/auth")
@@ -59,20 +61,17 @@ public class SocioController {
         try {
             return ResponseEntity.ok(socioService.authenticate(user.getUsername(), user.getPassword()));
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }
     @GetMapping(value ="/current", produces = "application/json")
     public ResponseEntity<Socio> getCurrentUser() {
         try {
-            Socio currentUser = CurrentUserHolder.getCurrentUser();
-            if (currentUser != null) {
-                return ResponseEntity.ok(currentUser);
-            } else {
-                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-            }
+            Socio currentUser = socioService.getSocio();
+            return ResponseEntity.status(HttpStatus.OK).body(currentUser);
+
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build(); // Unexpected error
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "No hay un Usuario autenticado"); // Unexpected error
         }
     }
 
@@ -91,7 +90,7 @@ public class SocioController {
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
         }
         catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, e.getMessage());
         }
     }
 
