@@ -1,7 +1,7 @@
 package com.uade.gympal.Controller;
 
 import com.uade.gympal.Repository.Entity.CurrentUserHolder;
-import com.uade.gympal.Repository.Entity.Objetivo;
+
 import com.uade.gympal.Repository.Entity.Socio;
 import com.uade.gympal.Repository.Enums.ObjetivoEnum;
 import com.uade.gympal.Service.ObjetivoService;
