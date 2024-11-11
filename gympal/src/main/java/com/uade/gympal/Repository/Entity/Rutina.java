@@ -1,6 +1,7 @@
 package com.uade.gympal.Repository.Entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,12 +21,9 @@ public class Rutina {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<Entrenamiento> entrenamientos;
 
-    private boolean completada;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    private Objetivo objetivo;
 
     public boolean esPerfecta() {
         for (Entrenamiento entrenamiento : entrenamientos) {

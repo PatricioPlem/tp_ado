@@ -22,8 +22,7 @@ public class SocioService {
     private SocioRepository socioRepository;
     @Autowired
     private ObjetivoService objetivoService;
-    @Autowired
-    private ObjetivoRepository objetivoRepository;
+
 
 
     public List<Socio> findAllUsers() {
@@ -57,7 +56,7 @@ public class SocioService {
     public void deleteUser(Long id) {
         socioRepository.deleteById(id);
     }
-    @Transactional
+
     public Socio cambiarObjetivo(ObjetivoEnum objetivo) {
         // Obtener el socio por su ID
         Socio socio = CurrentUserHolder.getCurrentUser();
@@ -73,6 +72,10 @@ public class SocioService {
 
         // Guardar el socio actualizado
         return socioRepository.save(socio);
+    }
+
+    public Socio getSocio() {
+        return socioRepository.findById(CurrentUserHolder.getCurrentUser().getId()).orElseThrow();
     }
 
 }

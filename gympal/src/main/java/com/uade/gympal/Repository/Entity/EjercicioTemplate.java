@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Ejercicio {
+public class EjercicioTemplate {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,13 +23,14 @@ public class Ejercicio {
     private int nivelAerobico;
     @Enumerated(EnumType.STRING)
     private ExigenciaMuscularEnum exigenciaMuscular;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL)
     private VideoFile video;
-    private boolean completado;
     @Enumerated(EnumType.STRING)
     private GrupoMuscularEnum grupoMuscular;  // Cambiado a Enum
     private int series;
     private int repeticiones;
-    private double peso;
+    private float peso;
+
+
 
 }

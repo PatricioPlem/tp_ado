@@ -20,8 +20,9 @@ public class Entrenamiento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @OneToMany()
-    private List<Ejercicio> ejercicios;
+    @OneToMany(cascade = CascadeType.ALL , orphanRemoval = true)
+    @JsonManagedReference
+    private List<EjercicioImplementado> ejercicios;
     private int dia;
 
     public boolean isCompletado() {
