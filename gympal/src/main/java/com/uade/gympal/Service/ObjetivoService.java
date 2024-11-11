@@ -14,6 +14,8 @@ public class ObjetivoService {
     private ObjetivoRepository objetivoRepository;
     @Autowired
     private RutinaFactory rutinaFactory;
+    @Autowired
+    private RutinaService rutinaService;
 
 
     public Objetivo getUserObjetivo(Socio socioAutenticado) {
@@ -52,6 +54,20 @@ public class ObjetivoService {
         }
         throw new RuntimeException("Exploto el programa :/");
     }
+
+    public boolean verificarObjetivoCumplido(Socio socio) {
+        Objetivo objetivo = socio.getObjetivo();
+
+        if (objetivo instanceof ObjetivoMantenerFigura) {
+            boolean rutinaCompletada = rutinaService.verificarCompleto(socio).isCompletada();
+            if (socio.getObjetivo().getTipo() == ObjetivoEnum.MANTENER_FIGURA && !rutinaCompletada) {
+                return false;
+            }
+        }
+
+        return objetivo.objetivoCumplido(socio);
+    }
+
     // Método para obtener todos los objetivos
     public List<Objetivo> getAllObjetivos() {
         return objetivoRepository.findAll();
