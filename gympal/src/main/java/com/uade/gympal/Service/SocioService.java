@@ -34,8 +34,8 @@ public class SocioService {
         if (socio.getPassword().equals(password)) {
             CurrentUserHolder.setCurrentUser(socio);
 
-            socio.getObjetivo().agregar(new TrofeoDedicacion());
-            socio.getObjetivo().agregar(new TrofeoConstancia());
+            //socio.getObjetivo().agregar(new TrofeoDedicacion());
+            //socio.getObjetivo().agregar(new TrofeoConstancia());
 
 
             return socio;

@@ -8,6 +8,7 @@ import com.uade.gympal.Repository.ObjetivoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -85,7 +86,6 @@ public class ObjetivoService {
     }
 
     private void agregarObservers(Objetivo objetivo) {
-        objetivo.agregar(new TrofeoDedicacion());
-        objetivo.agregar(new TrofeoConstancia());
+        objetivo.setObservers(new ArrayList<>(List.of(new TrofeoDedicacion(), new TrofeoConstancia())));
     }
 }
