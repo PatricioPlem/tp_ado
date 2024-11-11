@@ -1,5 +1,6 @@
 package com.uade.gympal.Repository.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,8 +19,8 @@ public class Medicion {
 
     @ManyToOne
     @JoinColumn(name = "socio_id", nullable = false)
+    @JsonIgnore
     private Socio socio; // Link al socio user
-
     private float MasaMuscular;
     private float GrasaCorporal;
     private float Peso;

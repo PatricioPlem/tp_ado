@@ -3,6 +3,7 @@ import com.uade.gympal.Repository.Entity.CurrentUserHolder;
 import com.uade.gympal.Repository.Entity.Medicion;
 import com.uade.gympal.Repository.MedicionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cglib.core.Local;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -15,12 +16,19 @@ public class MedicionService {
     private MedicionRepository medicionRepository;
 
     public Medicion addMeasurement(Medicion medida) {
-        medida.setId(CurrentUserHolder.getCurrentUser().getId());
-        medida.setDateTime(LocalDateTime.now()); // Set the timestamp before saving
-        return medicionRepository.save(medida);
+        if (CurrentUserHolder.getCurrentUser() != null){
+            medida.setSocio(CurrentUserHolder.getCurrentUser());
+            medida.setDateTime(LocalDateTime.now()); // Set the timestamp before saving
+            return medicionRepository.save(medida);
+        }
+        throw new RuntimeException("UNAUTHORIZED");
     }
 
     public List<Medicion> getMeasurements() {
-        return medicionRepository.findBySocioId(CurrentUserHolder.getCurrentUser().getId());
+        if (CurrentUserHolder.getCurrentUser()!= null){
+            return medicionRepository.findBySocioId(CurrentUserHolder.getCurrentUser().getId());
+        }
+        throw new RuntimeException("UNAUTHORIZED");
+
     }
 }

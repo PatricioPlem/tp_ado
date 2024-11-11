@@ -22,27 +22,28 @@ public class MedicionController {
 
     @PostMapping("/agregar")
     public ResponseEntity<Medicion> addMeasurement(@RequestBody Medicion medida) {
-        Socio socio = CurrentUserHolder.getCurrentUser();
-        if (socio == null ) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        else {
-            medida.setSocio(socio);
+        try {
+            medida.setSocio(CurrentUserHolder.getCurrentUser());
             Medicion guardadaMedida = medicionService.addMeasurement(medida);
             return ResponseEntity.status(HttpStatus.CREATED).body(guardadaMedida);
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 
     @GetMapping("/mis-mediciones")
     public ResponseEntity<List<Medicion>> getMeasurements() {
-        Socio miSocio = CurrentUserHolder.getCurrentUser();
-        if (miSocio == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-        }
-        else{
+        try{
             List<Medicion> measurements = medicionService.getMeasurements();
             return ResponseEntity.ok(measurements);
         }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+
+
 
     }
 }
