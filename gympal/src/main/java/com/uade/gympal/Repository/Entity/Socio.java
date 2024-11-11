@@ -36,7 +36,7 @@ public class Socio {
     @OneToOne(cascade = CascadeType.ALL , orphanRemoval = true)
     private Objetivo objetivo;
 
-    @OneToMany(mappedBy = "socio", cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL)
     private List<Trofeo> trofeos;
 
     private float masaMuscular;
