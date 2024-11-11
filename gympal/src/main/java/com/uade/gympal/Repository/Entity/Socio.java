@@ -43,7 +43,9 @@ public class Socio {
 
     private float grasaCorporal;
 
-    public void addTrofeo(Trofeo trofeo){
-        trofeos.add(trofeo);
+    public void agregarTrofeo(Trofeo trofeo) {
+        if (!trofeos.contains(trofeo)) {
+            trofeos.add(trofeo);
+        }
     }
 }

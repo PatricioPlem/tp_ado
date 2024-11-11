@@ -1,6 +1,7 @@
 package com.uade.gympal.Repository.Entity.Trofeos;
 
 import com.uade.gympal.Repository.Entity.Medicion;
+import com.uade.gympal.Repository.Entity.Socio;
 
 public class TrofeoCreido extends Trofeo {
     public TrofeoCreido() {
@@ -12,5 +13,8 @@ public class TrofeoCreido extends Trofeo {
     }
 
     @Override
-    public void serNotificado() {}
+    public void serNotificado(Socio socio) {
+        System.out.println("Trofeo al Creído");
+        socio.agregarTrofeo(this);
+    }
 }

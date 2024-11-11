@@ -26,7 +26,7 @@ public class Entrenamiento {
     private int dia;
 
     public boolean isCompletado() {
-        for (Ejercicio ejercicio : ejercicios) {
+        for (EjercicioImplementado ejercicio : ejercicios) {
             if (!ejercicio.isCompletado()) {
                 return false;
             }

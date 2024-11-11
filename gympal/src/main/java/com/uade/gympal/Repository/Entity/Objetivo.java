@@ -47,7 +47,7 @@ public abstract class Objetivo implements IObservable {
     @Override
     public void notificarObservadores() {
         for (Observador observador : observers) {
-            observador.serNotificado();
+            observador.serNotificado(CurrentUserHolder.getCurrentUser());
         }
     }
 

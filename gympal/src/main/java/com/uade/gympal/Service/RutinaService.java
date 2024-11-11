@@ -52,6 +52,11 @@ public class RutinaService {
 
         }
         response.setCompletada(true);
+
+        if (rutina.esPerfecta()) {
+            rutina.notificarObservadores();
+        }
+
         return response;
 
     }

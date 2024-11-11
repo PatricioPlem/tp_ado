@@ -38,9 +38,6 @@ public class SocioController {
             System.out.println(objetivo);
             Socio socioActualizado = socioService.cambiarObjetivo(objetivo);
 
-            // Agregar observer para trofeo
-            if (socioActualizado.getObservers().isEmpty()) { socioActualizado.agregar(new TrofeoDedicacion()); }
-
             // Retornar el socio actualizado
             return ResponseEntity.ok(socioActualizado);
         }
@@ -82,9 +79,6 @@ public class SocioController {
 
     @PostMapping(value="/logoff", produces = "application/json")
     public ResponseEntity<Void> clearCurrentUser () {
-        Socio currentUser = CurrentUserHolder.getCurrentUser();
-        currentUser.clearObservers();
-
         CurrentUserHolder.clear();
         return ResponseEntity.noContent().build();
     }

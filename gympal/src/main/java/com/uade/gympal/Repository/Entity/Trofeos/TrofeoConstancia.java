@@ -1,6 +1,7 @@
 package com.uade.gympal.Repository.Entity.Trofeos;
 
 import com.uade.gympal.Repository.Entity.Rutina;
+import com.uade.gympal.Repository.Entity.Socio;
 
 public class TrofeoConstancia extends Trofeo {
     public TrofeoConstancia() {
@@ -12,5 +13,8 @@ public class TrofeoConstancia extends Trofeo {
     }
 
     @Override
-    public void serNotificado() {}
+    public void serNotificado(Socio socio) {
+        System.out.println("Trofeo a la Constancia");
+        socio.agregarTrofeo(this);
+    }
 }

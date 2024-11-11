@@ -30,11 +30,12 @@ public class MedicionService implements IObservable {
     }
 
     public Medicion addMeasurement(Medicion medida) {
-        if (CurrentUserHolder.getCurrentUser() != null){
+        Socio socio = CurrentUserHolder.getCurrentUser();
+        if (socio != null){
             medida.setSocio(CurrentUserHolder.getCurrentUser());
             medida.setDateTime(LocalDateTime.now()); // Set the timestamp before saving
 
-            if (esSocioCreido(CurrentUserHolder.getCurrentUser())) {
+            if (esSocioCreido(socio)) {
                 notificarObservadores();
             }
 
@@ -75,7 +76,7 @@ public class MedicionService implements IObservable {
     public void notificarObservadores() {
         for (Observador observer: observers) {
             if (observer instanceof TrofeoCreido) {
-                observer.serNotificado();
+                observer.serNotificado(CurrentUserHolder.getCurrentUser());
             }
         }
     }

@@ -1,6 +1,7 @@
 package com.uade.gympal.Repository.Entity.Trofeos;
 
 import com.uade.gympal.Repository.Entity.Observer.Observador;
+import com.uade.gympal.Repository.Entity.Socio;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Data;
@@ -21,5 +22,5 @@ public abstract class Trofeo implements Observador {
         this.name = name;
     }
 
-    public abstract void serNotificado();
+    public abstract void serNotificado(Socio socio);
 }
