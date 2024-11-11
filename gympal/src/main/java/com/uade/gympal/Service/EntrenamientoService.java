@@ -27,6 +27,13 @@ public class EntrenamientoService {
 
     }
     public boolean verificarCompletado(Entrenamiento entrenamiento) {
-        return entrenamiento.isCompletado();
+        List<EjercicioImplementado> ejercicios = entrenamiento.getEjercicios();
+
+        for (EjercicioImplementado ejercicio : ejercicios) {
+            if (!ejercicioService.verificarCompletado(ejercicio)){
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -32,15 +32,6 @@ public class Rutina implements IObservable {
     @Transient
     private List<Observador> observers = new ArrayList<>();
 
-    public boolean esPerfecta() {
-        for (Entrenamiento entrenamiento : entrenamientos) {
-            if (!entrenamiento.isCompletado()) {
-                return false;
-            }
-        }
-        return true;
-    }
-
     @Override
     public void agregar(Observador observador) {
         observers.add(observador);

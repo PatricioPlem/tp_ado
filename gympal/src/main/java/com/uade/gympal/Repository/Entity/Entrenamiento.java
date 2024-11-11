@@ -24,13 +24,4 @@ public class Entrenamiento {
     @JsonManagedReference
     private List<EjercicioImplementado> ejercicios;
     private int dia;
-
-    public boolean isCompletado() {
-        for (EjercicioImplementado ejercicio : ejercicios) {
-            if (!ejercicio.isCompletado()) {
-                return false;
-            }
-        }
-        return true;
-    }
 }
