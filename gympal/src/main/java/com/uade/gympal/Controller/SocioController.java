@@ -31,18 +31,19 @@ public class SocioController {
 
     @PostMapping("/cambiar-objetivo")
     public ResponseEntity<Socio> cambiarObjetivo(@RequestBody ObjetivoEnum objetivo) {
-        try {
+        //try {
             // Llamar al servicio para cambiar el objetivo
             System.out.println(objetivo);
             Socio socioActualizado = socioService.cambiarObjetivo(objetivo);
 
             // Retornar el socio actualizado
             return ResponseEntity.ok(socioActualizado);
-        }
-        catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        //}
+        //catch (RuntimeException e) {
+            //System.out.println(e.getMessage());
+            //return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
-        }
+        //}
     }
 
     @PostMapping()

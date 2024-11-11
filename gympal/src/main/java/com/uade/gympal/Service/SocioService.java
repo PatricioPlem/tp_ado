@@ -50,7 +50,7 @@ public class SocioService {
     public void deleteUser(Long id) {
         socioRepository.deleteById(id);
     }
-    @Transactional
+
     public Socio cambiarObjetivo(ObjetivoEnum objetivo) {
         // Obtener el socio por su ID
         Socio socio = CurrentUserHolder.getCurrentUser();

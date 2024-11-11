@@ -59,7 +59,7 @@ public class RutinaFactory {
             GrupoMuscularEnum grupoMuscular = gruposMusculares[dia - 1];
 
             // Filtrar los ejercicios según el objetivo
-            List<Ejercicio> ejerciciosFiltrados = filtrarEjerciciosPorObjetivo(
+            List<EjercicioTemplate> ejerciciosFiltrados = filtrarEjerciciosPorObjetivo(
                     ejercicioRepository.findEjerciciosByGrupoMuscular(grupoMuscular),
                     nivelAerobicoMin,
                     nivelAerobicoMax,
@@ -68,17 +68,35 @@ public class RutinaFactory {
 
             Entrenamiento entrenamiento = new Entrenamiento();
             entrenamiento.setDia(dia);
-            entrenamiento.setEjercicios(ejerciciosFiltrados);
+            entrenamiento.setEjercicios(crearEjerciciosImplementados(ejerciciosFiltrados , entrenamiento));
             entrenamientos.add(entrenamiento);
         }
 
         return entrenamientos;
     }
 
+    // Método para construir la lista de EjercicioImplementado
+    private List<EjercicioImplementado> crearEjerciciosImplementados(List<EjercicioTemplate> ejerciciosFiltrados, Entrenamiento entrenamiento) {
+        List<EjercicioImplementado> ejerciciosImplementados = new ArrayList<>();
+        for (EjercicioTemplate template : ejerciciosFiltrados) {
+
+
+            ejerciciosImplementados.add(EjercicioImplementado.builder()
+                    .entrenamiento(entrenamiento)
+                    .ejercicioTemplate(template)
+                    .peso(template.getPeso())
+                    .series(template.getSeries())
+                    .repeticiones(template.getRepeticiones())
+                    .completado(false)
+                    .build());
+        }
+        return ejerciciosImplementados;
+    }
+
     // Método para filtrar ejercicios según condiciones de nivel aeróbico y exigencia muscular
-    private List<Ejercicio> filtrarEjerciciosPorObjetivo(List<Ejercicio> ejercicios, int nivelAerobicoMin, int nivelAerobicoMax, ExigenciaMuscularEnum... exigencias) {
-        Set<Ejercicio> ejerciciosFiltrados = new HashSet<>();
-        for (Ejercicio ejercicio : ejercicios) {
+    private List<EjercicioTemplate> filtrarEjerciciosPorObjetivo(List<EjercicioTemplate> ejercicios, int nivelAerobicoMin, int nivelAerobicoMax, ExigenciaMuscularEnum... exigencias) {
+        Set<EjercicioTemplate> ejerciciosFiltrados = new HashSet<>();
+        for (EjercicioTemplate ejercicio : ejercicios) {
             if (ejercicio.getNivelAerobico() >= nivelAerobicoMin &&
                     ejercicio.getNivelAerobico() <= nivelAerobicoMax &&
                     Arrays.asList(exigencias).contains(ejercicio.getExigenciaMuscular())) {
